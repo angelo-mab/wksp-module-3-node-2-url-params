@@ -1,0 +1,9 @@
+<%- include('../partials/header') %>
+<div>
+  <ol>
+    <% books.forEach(book => {%> 
+     <%- include('../partials/type', {book: book}) %> 
+    <% }); %>
+  </ol>
+</div>
+<%- include('../partials/footer') %>

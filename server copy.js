@@ -1,10 +1,9 @@
 "use strict";
-
 const express = require("express");
-const bodyParser = require("body-parser");
 const morgan = require("morgan");
 
 const { top50 } = require("./data/top50");
+const { books } = require("./data/books");
 
 const PORT = process.env.PORT || 8000;
 
@@ -12,18 +11,33 @@ const app = express();
 
 app.use(morgan("dev"));
 app.use(express.static("public"));
-app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 
-// endpoints
-app.get("/top50", (req, res) => {
-  res.render("pages/top50", {
-    title: "Top 50 Songs Streamed on Spotify",
-    top50: top50
+// 2.1
+app.get('/books', (req, res) => {
+  res.render("pages/books", {
+    title: "Books included for the exercise",
+    books1: books,
   });
 });
 
+// endpoints here
+//1.4
+app.get("/", (req, res) => {
+  res.render("pages/top50", {
+    title: "Top 50 Songs Streamed on Spotify",
+    topSong: top50,
+  });
+});
+
+//1.5
+// app.get("/popular-artist", (req, res) => {
+//   res.render("pages/popular-artist", {
+//     title: "Hello",
+//     topSong: top50
+//   });
+// });
 app.get("/top50/popular-artist", (req, res) => {
   const artists = [];
   const artistCount = {};
@@ -52,21 +66,21 @@ app.get("/top50/popular-artist", (req, res) => {
     a.count < b.count ? 1 : -1
   )[0].artist;
 
-  res.render("pages/popularArtist", {
+  res.render("./pages/popular-artist.ejs", {
     title: "Most Popular Artist",
     songs: top50.filter(song => song.artist === mostPopularArtist)
   });
 });
 
-app.get("/top50/song/:rank", (req, res) => {
-  const rank = req.params.rank - 1;
-  if (top50[rank]) {
+// 1.6
+app.get("/top50/song/:number", (req, res) => {
+  const number = req.params.number - 1;
+  if (1 <= number <= 50) {
     res.render("pages/songPage", {
-      title: `Song #${top50[rank].rank}`,
-      song: top50[rank]
+      title: `Song #${top50[number].rank}`,
+      song: top50[number]
     });
   } else {
-    res.status(404);
     res.render("pages/fourOhFour", {
       title: "I got nothing",
       path: req.originalUrl

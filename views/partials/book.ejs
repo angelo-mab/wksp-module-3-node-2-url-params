@@ -1,0 +1,30 @@
+<li>
+  <div class="book">
+    <div>
+      <h1 class="title">Title: <%= book.title %></h1>
+      <h2 class="author">Author: <%= book.author %></h2>
+      <span class="genre">Genre: <%= book.type %></span>
+    </div>
+    <div class="info">
+      <img
+        src="<%= book.imgUrl %>"
+        alt="<%= book.title %>"
+        tyle="max-height: 140px;"
+      />
+      <p class="description"><%= book.description %></p>
+    </div>
+  </div>
+</li>
+
+<!-- 
+book = [
+  {
+   id: 
+   type: (genre)
+   imgURL:
+   title:
+   author:
+   description: 
+  }
+]
+ -->
