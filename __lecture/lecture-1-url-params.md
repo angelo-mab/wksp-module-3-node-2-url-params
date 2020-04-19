@@ -26,6 +26,7 @@ app.get("/question10", q10);
 
 ```js
 // ...
+<<<<<<< Updated upstream
 
 app.get('question/:number)', (req, res) => {
  const number = req.params.number;
@@ -33,6 +34,17 @@ app.get('question/:number)', (req, res) => {
  exercisesp1[${number}]();
 }
 
+=======
+app.get('/questions.:number', (req, res) => {
+const number = req.params.number;
+console.log(number);
+});
+
+//whatever you put at the endpoint (/:number in this case) becomes into the key in the params
+//req - obj
+//params - obj
+// number - key
+>>>>>>> Stashed changes
 ```
 
 </div></div>
